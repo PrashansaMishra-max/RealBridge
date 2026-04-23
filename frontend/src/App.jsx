@@ -1,10 +1,19 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Home from './components/Home'
+
+const appRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />
+  },
+])
+
 function App() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center mt-10 text-purple-700">
-        RealBridge 🚀
-      </h1>
+      <RouterProvider router={appRouter} />
     </div>
   )
 }
+
 export default App
