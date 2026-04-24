@@ -14,9 +14,7 @@ const Navbar = () => {
 
     const logoutHandler = async () => {
         try {
-            const res = await axios.get(`${USER_API_END_POINT}/logout`, {
-                withCredentials: true
-            });
+            const res = await axios.get(`${USER_API_END_POINT}/logout`, { withCredentials: true });
             if (res.data.success) {
                 dispatch(setUser(null));
                 navigate("/");
@@ -27,79 +25,94 @@ const Navbar = () => {
         }
     }
 
-    const dashboardRoute = user?.role === 'developer' 
-        ? '/dashboard/developer' 
-        : '/dashboard/citizen';
+    const dashboardRoute = user?.role === 'developer' ? '/dashboard/developer' : '/dashboard/citizen';
 
     return (
-        <div className='bg-white shadow-md'>
-            <div className='flex items-center justify-between mx-auto max-w-7xl h-16 px-4'>
+        <nav style={{
+            background: 'rgba(15,13,30,0.85)',
+            borderBottom: '1px solid rgba(139,92,246,0.2)',
+            backdropFilter: 'blur(20px)',
+            position: 'sticky',
+            top: 0,
+            zIndex: 100
+        }}>
+            <div className='flex items-center justify-between mx-auto max-w-7xl h-16 px-6'>
 
                 {/* Logo */}
-                <Link to="/">
-                    <h1 className='text-2xl font-bold'>
-                        Real<span className='text-purple-600'>Bridge</span>
+                <Link to="/" className='flex items-center gap-2'>
+                    <div className='w-8 h-8 rounded-lg flex items-center justify-center text-lg'
+                        style={{background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)'}}>
+                        🌉
+                    </div>
+                    <h1 className='text-xl font-black text-white'>
+                        Real<span style={{
+                            backgroundImage: 'linear-gradient(90deg, #8b5cf6, #06b6d4)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent'
+                        }}>Bridge</span>
                     </h1>
                 </Link>
 
                 {/* Nav Links */}
-                <div className='flex items-center gap-8'>
-                    <ul className='flex font-medium items-center gap-6'>
-                        <li><Link to="/" className='hover:text-purple-600'>Home</Link></li>
-                        <li><Link to="/problems" className='hover:text-purple-600'>Problems</Link></li>
-                        {user && user.role === 'user' && (
-                            <li><Link to="/post-problem" className='hover:text-purple-600'>Post Problem</Link></li>
-                        )}
-                        {user && (
-                            <li>
-                                <Link to={dashboardRoute} className='hover:text-purple-600 flex items-center gap-1'>
-                                    <LayoutDashboard className='w-4 h-4' />
-                                    Dashboard
-                                </Link>
-                            </li>
-                        )}
-                    </ul>
+                <div className='flex items-center gap-6'>
+                    <Link to="/" className='text-sm font-medium transition-all hover:text-white'
+                        style={{color: 'rgba(196,181,253,0.8)'}}>Home</Link>
+                    <Link to="/problems" className='text-sm font-medium transition-all hover:text-white'
+                        style={{color: 'rgba(196,181,253,0.8)'}}>Problems</Link>
+                    {user?.role === 'user' && (
+                        <Link to="/post-problem" className='text-sm font-medium transition-all hover:text-white'
+                            style={{color: 'rgba(196,181,253,0.8)'}}>Post Problem</Link>
+                    )}
+                    {user && (
+                        <Link to={dashboardRoute}
+                            className='flex items-center gap-1 text-sm font-medium transition-all hover:text-white'
+                            style={{color: 'rgba(196,181,253,0.8)'}}>
+                            <LayoutDashboard className='w-4 h-4'/>
+                            Dashboard
+                        </Link>
+                    )}
+                </div>
 
-                    {/* Auth Buttons */}
-                    {
-                        !user ? (
-                            <div className='flex items-center gap-2'>
-                                <Link to="/login">
-                                    <button className='px-4 py-2 border border-purple-600 text-purple-600 rounded-md hover:bg-purple-50'>
-                                        Login
-                                    </button>
-                                </Link>
-                                <Link to="/signup">
-                                    <button className='px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700'>
-                                        Signup
-                                    </button>
-                                </Link>
-                            </div>
-                        ) : (
-                            <div className='flex items-center gap-4'>
-                                <Link to="/profile" className='flex items-center gap-2 hover:text-purple-600'>
-                                    <div className='w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center'>
-                                        {user?.profile?.profilePhoto ? (
-                                            <img src={user.profile.profilePhoto} alt="profile" className='w-full h-full rounded-full object-cover' />
-                                        ) : (
-                                            <User className='w-4 h-4 text-purple-600' />
-                                        )}
-                                    </div>
-                                    <span className='font-medium text-sm'>{user?.fullname}</span>
-                                </Link>
-                                <button
-                                    onClick={logoutHandler}
-                                    className='flex items-center gap-1 px-4 py-2 border border-red-400 text-red-400 rounded-md hover:bg-red-50'
-                                >
-                                    <LogOut className='w-4 h-4' />
-                                    Logout
+                {/* Auth */}
+                <div className='flex items-center gap-3'>
+                    {!user ? (
+                        <>
+                            <Link to="/login">
+                                <button className='px-4 py-2 text-sm font-semibold rounded-lg transition-all hover:text-white'
+                                    style={{color: 'rgba(196,181,253,0.8)', background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.2)'}}>
+                                    Log In
                                 </button>
-                            </div>
-                        )
-                    }
+                            </Link>
+                            <Link to="/signup">
+                                <button className='px-4 py-2 text-sm font-bold rounded-lg text-white transition-all hover:opacity-90'
+                                    style={{background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)'}}>
+                                    Sign Up
+                                </button>
+                            </Link>
+                        </>
+                    ) : (
+                        <div className='flex items-center gap-3'>
+                            <Link to="/profile" className='flex items-center gap-2'>
+                                <div className='w-8 h-8 rounded-full overflow-hidden flex items-center justify-center'
+                                    style={{background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)'}}>
+                                    {user?.profile?.profilePhoto
+                                        ? <img src={user.profile.profilePhoto} alt="profile" className='w-full h-full object-cover'/>
+                                        : <User className='w-4 h-4 text-white'/>
+                                    }
+                                </div>
+                                <span className='text-sm font-medium text-white'>{user?.fullname}</span>
+                            </Link>
+                            <button onClick={logoutHandler}
+                                className='flex items-center gap-1 px-3 py-2 text-sm font-semibold rounded-lg transition-all'
+                                style={{background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#fca5a5'}}>
+                                <LogOut className='w-4 h-4'/>
+                                Logout
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
-        </div>
+        </nav>
     )
 }
 
