@@ -8,6 +8,7 @@ import Profile from './components/Profile'
 import ProblemDetail from './components/problems/ProblemDetail'
 import CitizenDashboard from './components/dashboard/CitizenDashboard'
 import DeveloperDashboard from './components/dashboard/DeveloperDashboard'
+import AdminDashboard from './components/dashboard/AdminDashboard'
 
 const appRouter = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const appRouter = createBrowserRouter([
   {
     path: '/dashboard/developer',
     element: <DeveloperDashboard />
+  },
+  {
+    path: '/dashboard/admin',
+    element: <AdminDashboard />
   },
   {
     path: '*',
