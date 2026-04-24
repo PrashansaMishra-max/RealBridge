@@ -4,6 +4,7 @@ import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Problems from './components/problems/Problems'
 import PostProblem from './components/problems/PostProblem'
+import Profile from './components/Profile'
 
 const appRouter = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const appRouter = createBrowserRouter([
   {
     path: '/post-problem',
     element: <PostProblem />
+  },
+  {
+    path: '/profile',
+    element: <Profile />
   },
   {
     path: '*',
