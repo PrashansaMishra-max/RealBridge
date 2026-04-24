@@ -6,6 +6,8 @@ import Problems from './components/problems/Problems'
 import PostProblem from './components/problems/PostProblem'
 import Profile from './components/Profile'
 import ProblemDetail from './components/problems/ProblemDetail'
+import CitizenDashboard from './components/dashboard/CitizenDashboard'
+import DeveloperDashboard from './components/dashboard/DeveloperDashboard'
 
 const appRouter = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const appRouter = createBrowserRouter([
   {
     path: '/profile',
     element: <Profile />
+  },
+  {
+    path: '/dashboard/citizen',
+    element: <CitizenDashboard />
+  },
+  {
+    path: '/dashboard/developer',
+    element: <DeveloperDashboard />
   },
   {
     path: '*',
