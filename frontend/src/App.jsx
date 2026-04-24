@@ -3,6 +3,7 @@ import Home from './components/Home'
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Problems from './components/problems/Problems'
+import PostProblem from './components/problems/PostProblem'
 
 const appRouter = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const appRouter = createBrowserRouter([
   {
     path: '/problems',
     element: <Problems />
+  },
+  {
+    path: '/post-problem',
+    element: <PostProblem />
   },
   {
     path: '*',
