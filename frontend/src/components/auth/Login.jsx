@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { USER_API_END_POINT } from '../../utils/constant'
 import { useDispatch } from 'react-redux'
 import { setUser, setLoading } from '../../redux/authSlice'
 import { toast } from 'sonner'
@@ -25,8 +26,7 @@ const Login = () => {
         e.preventDefault();
         setLoadingState(true);
         try {
-            const res = await axios.post(`http://localhost:8000/api/v1/user/login`, input, {
-                headers: { "Content-Type": "application/json" },
+            const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
                 withCredentials: true,
             });
             if (res.data.success) {
