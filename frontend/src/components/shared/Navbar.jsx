@@ -5,7 +5,7 @@ import { setUser } from '../../redux/authSlice'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { USER_API_END_POINT } from '../../utils/constant'
-import { LogOut, User } from 'lucide-react'
+import { LogOut, User, LayoutDashboard } from 'lucide-react'
 
 const Navbar = () => {
     const { user } = useSelector(store => store.auth);
@@ -27,6 +27,10 @@ const Navbar = () => {
         }
     }
 
+    const dashboardRoute = user?.role === 'developer' 
+        ? '/dashboard/developer' 
+        : '/dashboard/citizen';
+
     return (
         <div className='bg-white shadow-md'>
             <div className='flex items-center justify-between mx-auto max-w-7xl h-16 px-4'>
@@ -43,11 +47,17 @@ const Navbar = () => {
                     <ul className='flex font-medium items-center gap-6'>
                         <li><Link to="/" className='hover:text-purple-600'>Home</Link></li>
                         <li><Link to="/problems" className='hover:text-purple-600'>Problems</Link></li>
-                        {
-                            user && user.role === 'user' && (
-                                <li><Link to="/post-problem" className='hover:text-purple-600'>Post Problem</Link></li>
-                            )
-                        }
+                        {user && user.role === 'user' && (
+                            <li><Link to="/post-problem" className='hover:text-purple-600'>Post Problem</Link></li>
+                        )}
+                        {user && (
+                            <li>
+                                <Link to={dashboardRoute} className='hover:text-purple-600 flex items-center gap-1'>
+                                    <LayoutDashboard className='w-4 h-4' />
+                                    Dashboard
+                                </Link>
+                            </li>
+                        )}
                     </ul>
 
                     {/* Auth Buttons */}
