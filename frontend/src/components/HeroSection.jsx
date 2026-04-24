@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setSearchedQuery } from '../redux/problemSlice'
 import { useNavigate } from 'react-router-dom'
-import { Search, ArrowRight, Zap, Star, Globe, Code, Heart, Leaf } from 'lucide-react'
+import { Search, Play } from 'lucide-react'
 
 const HeroSection = () => {
     const [query, setQuery] = useState("");
@@ -16,134 +16,243 @@ const HeroSection = () => {
 
     return (
         <div>
-            {/* HERO SECTION */}
-            <div className='relative overflow-hidden' style={{background: 'linear-gradient(135deg, #0f0c29, #302b63, #24243e)'}}>
+            {/* HERO */}
+            <div className='relative overflow-hidden' style={{background: 'linear-gradient(135deg, #2d1b69 0%, #3730a3 40%, #4338ca 70%, #3b0764 100%)', minHeight: '100vh'}}>
 
-                {/* Floating Blobs */}
-                <div className='absolute top-10 left-10 w-72 h-72 rounded-full opacity-20' style={{background: 'radial-gradient(circle, #a855f7, transparent)'}}></div>
-                <div className='absolute top-20 right-20 w-96 h-96 rounded-full opacity-20' style={{background: 'radial-gradient(circle, #6366f1, transparent)'}}></div>
-                <div className='absolute bottom-10 left-1/2 w-64 h-64 rounded-full opacity-10' style={{background: 'radial-gradient(circle, #ec4899, transparent)'}}></div>
+                {/* Subtle dot pattern overlay */}
+                <div className='absolute inset-0 pointer-events-none' style={{
+                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)',
+                    backgroundSize: '30px 30px',
+                    opacity: 0.4
+                }}></div>
 
-                <div className='relative max-w-7xl mx-auto px-4 py-28 flex flex-col items-center text-center'>
+                {/* 3D Objects SVG - Right Side */}
+                <div className='absolute right-0 top-0 bottom-0 w-1/2 pointer-events-none'>
+                    <svg viewBox="0 0 700 700" className='w-full h-full' style={{filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.5))'}}>
+                        <defs>
+                            {/* Purple gradients for 3D effect */}
+                            <linearGradient id="cube1top" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#818cf8"/>
+                                <stop offset="100%" stopColor="#4f46e5"/>
+                            </linearGradient>
+                            <linearGradient id="cube1left" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#3730a3"/>
+                                <stop offset="100%" stopColor="#4338ca"/>
+                            </linearGradient>
+                            <linearGradient id="cube1right" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#6366f1"/>
+                                <stop offset="100%" stopColor="#4f46e5"/>
+                            </linearGradient>
+                            <linearGradient id="cube2top" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#a5b4fc"/>
+                                <stop offset="100%" stopColor="#6366f1"/>
+                            </linearGradient>
+                            <linearGradient id="sphere1" cx="40%" cy="35%" r="60%" gradientUnits="objectBoundingBox">
+                                <stop offset="0%" stopColor="#a5b4fc"/>
+                                <stop offset="60%" stopColor="#6366f1"/>
+                                <stop offset="100%" stopColor="#312e81"/>
+                            </linearGradient>
+                            <radialGradient id="sphere2" cx="40%" cy="35%" r="60%">
+                                <stop offset="0%" stopColor="#c7d2fe"/>
+                                <stop offset="50%" stopColor="#818cf8"/>
+                                <stop offset="100%" stopColor="#3730a3"/>
+                            </radialGradient>
+                            <radialGradient id="sphere3" cx="40%" cy="35%" r="60%">
+                                <stop offset="0%" stopColor="#e0e7ff"/>
+                                <stop offset="50%" stopColor="#a5b4fc"/>
+                                <stop offset="100%" stopColor="#4338ca"/>
+                            </radialGradient>
+                            <radialGradient id="sphere4" cx="40%" cy="35%" r="60%">
+                                <stop offset="0%" stopColor="#818cf8"/>
+                                <stop offset="60%" stopColor="#4338ca"/>
+                                <stop offset="100%" stopColor="#1e1b4b"/>
+                            </radialGradient>
+                            <linearGradient id="ring1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#6366f1"/>
+                                <stop offset="100%" stopColor="#3730a3"/>
+                            </linearGradient>
+                            <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#1e1b4b"/>
+                                <stop offset="100%" stopColor="#312e81"/>
+                            </linearGradient>
+                            <style>{`
+                                @keyframes float1 { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-15px)} }
+                                @keyframes float2 { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-10px)} }
+                                @keyframes float3 { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-20px)} }
+                                @keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+                                .obj1{animation:float1 4s ease-in-out infinite}
+                                .obj2{animation:float2 5s ease-in-out infinite 0.5s}
+                                .obj3{animation:float3 3.5s ease-in-out infinite 1s}
+                                .obj4{animation:float1 6s ease-in-out infinite 1.5s}
+                                .obj5{animation:float2 4.5s ease-in-out infinite 0.8s}
+                            `}</style>
+                        </defs>
 
-                    {/* Badge */}
-                    <div className='flex items-center gap-2 px-5 py-2 rounded-full mb-8 border border-purple-400 border-opacity-40' style={{background: 'rgba(168, 85, 247, 0.15)'}}>
-                        <Zap className='w-4 h-4 text-yellow-400' />
-                        <span className='text-purple-200 text-sm font-semibold'>India's First Problem-Developer Bridge 🇮🇳</span>
-                    </div>
+                        {/* Large Cube - center */}
+                        <g className='obj1' transform="translate(200, 150)">
+                            {/* Top face */}
+                            <polygon points="120,0 240,70 120,140 0,70" fill="url(#cube1top)"/>
+                            {/* Left face */}
+                            <polygon points="0,70 120,140 120,280 0,210" fill="url(#cube1left)"/>
+                            {/* Right face */}
+                            <polygon points="120,140 240,70 240,210 120,280" fill="url(#cube1right)"/>
+                        </g>
 
-                    {/* Heading */}
-                    <h1 className='text-7xl font-black leading-tight mb-6 max-w-5xl'>
-                        <span className='text-white'>Real Problems.</span>
-                        <br />
-                        <span style={{backgroundImage: 'linear-gradient(90deg, #a855f7, #6366f1, #ec4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
-                            Real Solutions.
-                        </span>
-                        <br />
-                        <span className='text-white'>Real </span>
-                        <span style={{backgroundImage: 'linear-gradient(90deg, #facc15, #f97316)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
-                            Impact.
-                        </span>
-                    </h1>
+                        {/* Smaller Cube - top right */}
+                        <g className='obj2' transform="translate(450, 80)">
+                            <polygon points="70,0 140,40 70,80 0,40" fill="url(#cube2top)"/>
+                            <polygon points="0,40 70,80 70,160 0,120" fill="url(#cube1left)"/>
+                            <polygon points="70,80 140,40 140,120 70,160" fill="url(#cube1right)"/>
+                        </g>
 
-                    {/* Subheading */}
-                    <p className='text-xl text-purple-200 mb-10 max-w-2xl leading-relaxed'>
-                        Connect your everyday challenges with talented developers and students
-                        who build <span className='text-yellow-400 font-semibold'>real solutions</span> — not just another clone project.
-                    </p>
+                        {/* Dark small cube - bottom */}
+                        <g className='obj3' transform="translate(350, 480)">
+                            <polygon points="55,0 110,32 55,63 0,32" fill="#4338ca"/>
+                            <polygon points="0,32 55,63 55,125 0,95" fill="#1e1b4b"/>
+                            <polygon points="55,63 110,32 110,95 55,125" fill="#312e81"/>
+                        </g>
 
-                    {/* Search Bar */}
-                    <div className='flex w-full max-w-2xl items-center bg-white bg-opacity-10 border border-white border-opacity-20 rounded-2xl overflow-hidden mb-6 backdrop-blur-sm focus-within:border-purple-400 transition-all'>
-                        <Search className='w-5 h-5 text-purple-300 ml-4 flex-shrink-0' />
-                        <input
-                            type="text"
-                            placeholder='Search problems by keyword, category or skill...'
-                            onChange={(e) => setQuery(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && searchHandler()}
-                            className='outline-none border-none w-full py-4 px-3 text-white placeholder-purple-300 bg-transparent'
-                        />
-                        <button
-                            onClick={searchHandler}
-                            className='flex items-center gap-2 px-6 py-3 font-bold m-2 rounded-xl transition-all hover:opacity-90 text-white'
-                            style={{backgroundImage: 'linear-gradient(135deg, #a855f7, #6366f1)'}}
-                        >
-                            Search <ArrowRight className='w-4 h-4' />
-                        </button>
-                    </div>
+                        {/* Large sphere - bottom right */}
+                        <g className='obj4'>
+                            <circle cx="530" cy="480" r="100" fill="url(#sphere2)"/>
+                            {/* Stripe lines for 3D sphere effect */}
+                            <ellipse cx="530" cy="480" rx="100" ry="30" fill="none" stroke="#6366f1" strokeWidth="1.5" opacity="0.5"/>
+                            <ellipse cx="530" cy="460" rx="95" ry="20" fill="none" stroke="#818cf8" strokeWidth="1" opacity="0.4"/>
+                            <ellipse cx="530" cy="500" rx="95" ry="20" fill="none" stroke="#818cf8" strokeWidth="1" opacity="0.4"/>
+                            <line x1="530" y1="380" x2="530" y2="580" stroke="#6366f1" strokeWidth="1.5" opacity="0.4"/>
+                            <line x1="440" y1="450" x2="620" y2="510" stroke="#6366f1" strokeWidth="1" opacity="0.3"/>
+                        </g>
 
-                    {/* Popular Tags */}
-                    <div className='flex items-center gap-2 flex-wrap justify-center mb-16'>
-                        <span className='text-sm text-purple-400'>Trending:</span>
-                        {['Agriculture', 'Healthcare', 'Education', 'Mobile App', 'Website'].map((tag, i) => (
-                            <button
-                                key={tag}
-                                onClick={() => { dispatch(setSearchedQuery(tag)); navigate("/problems"); }}
-                                className='px-3 py-1 text-sm rounded-full transition-all border border-opacity-30 text-purple-200 hover:text-white border-purple-400'
-                                style={{background: 'rgba(168, 85, 247, 0.15)'}}
-                            >
-                                {tag}
+                        {/* Small sphere top */}
+                        <g className='obj5'>
+                            <circle cx="460" cy="120" r="45" fill="url(#sphere3)"/>
+                            <ellipse cx="460" cy="120" rx="45" ry="15" fill="none" stroke="#a5b4fc" strokeWidth="1" opacity="0.5"/>
+                        </g>
+
+                        {/* Tiny sphere left */}
+                        <g className='obj2'>
+                            <circle cx="190" cy="480" r="30" fill="url(#sphere4)"/>
+                        </g>
+
+                        {/* Tiny sphere top-far-right */}
+                        <g className='obj3'>
+                            <circle cx="580" cy="200" r="22" fill="url(#sphere1)"/>
+                        </g>
+
+                        {/* Ring / Torus - bottom left */}
+                        <g className='obj1' transform="translate(100, 370)">
+                            <ellipse cx="80" cy="80" rx="80" ry="35" fill="none" stroke="url(#ring1)" strokeWidth="22" opacity="0.9"/>
+                            <ellipse cx="80" cy="80" rx="80" ry="35" fill="none" stroke="#6366f1" strokeWidth="18" opacity="0.6"/>
+                            <ellipse cx="80" cy="65" rx="75" ry="25" fill="none" stroke="#818cf8" strokeWidth="8" opacity="0.4"/>
+                        </g>
+
+                        {/* Hexagon - dark, top area */}
+                        <g className='obj4' transform="translate(490, 280)">
+                            <polygon points="50,0 100,28 100,85 50,113 0,85 0,28" fill="url(#hexGrad)" opacity="0.9"/>
+                            <polygon points="50,10 90,32 90,78 50,100 10,78 10,32" fill="#1e1b4b" opacity="0.5"/>
+                        </g>
+
+                        {/* Shadow/ground reflection */}
+                        <ellipse cx="350" cy="650" rx="250" ry="25" fill="rgba(0,0,0,0.3)"/>
+                    </svg>
+                </div>
+
+                {/* Left side content */}
+                <div className='relative max-w-7xl mx-auto px-4 flex items-center' style={{minHeight: '100vh'}}>
+                    <div className='w-1/2 py-20'>
+
+                        {/* Tag */}
+                        <p className='text-xs font-bold tracking-widest uppercase mb-6' style={{color: '#a5b4fc'}}>
+                            India's First Problem-Developer Bridge
+                        </p>
+
+                        {/* Heading */}
+                        <h1 className='font-black leading-none mb-4 text-white' style={{fontSize: '68px', letterSpacing: '-2px'}}>
+                            Real World<br/>
+                            <span style={{color: '#c7d2fe'}}>Problems</span><br/>
+                            <span style={{backgroundImage: 'linear-gradient(90deg, #a5b4fc, #e0e7ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
+                                Meet Developers
+                            </span>
+                        </h1>
+
+                        {/* Subtitle */}
+                        <p className='font-bold uppercase tracking-widest mb-6 text-sm' style={{color: '#818cf8'}}>
+                            Community Driven Platform
+                        </p>
+
+                        <p className='text-base mb-10 max-w-md leading-relaxed' style={{color: 'rgba(199,210,254,0.8)'}}>
+                            A new way to connect everyday people with talented developers and students
+                            who turn real-world problems into working solutions.
+                        </p>
+
+                        {/* Search bar */}
+                        <div className='flex items-center rounded-full overflow-hidden mb-8 max-w-lg'
+                            style={{background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(165,180,252,0.3)'}}>
+                            <Search className='w-5 h-5 ml-5 flex-shrink-0' style={{color: '#a5b4fc'}}/>
+                            <input type="text"
+                                placeholder='Search problems...'
+                                onChange={(e) => setQuery(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && searchHandler()}
+                                className='outline-none border-none w-full py-4 px-3 bg-transparent text-white placeholder-indigo-300'
+                            />
+                        </div>
+
+                        {/* Buttons */}
+                        <div className='flex items-center gap-4'>
+                            <button onClick={() => navigate('/signup')}
+                                className='px-8 py-4 rounded-full font-bold text-white hover:opacity-90 transition-all'
+                                style={{background: '#1e1b4b', fontSize: '15px'}}>
+                                Get Started
                             </button>
-                        ))}
-                    </div>
+                            <button onClick={() => navigate('/problems')}
+                                className='flex items-center gap-3 px-6 py-4 rounded-full font-bold transition-all hover:opacity-80'
+                                style={{color: '#c7d2fe', background: 'transparent'}}>
+                                <div className='w-10 h-10 rounded-full flex items-center justify-center'
+                                    style={{background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(165,180,252,0.4)'}}>
+                                    <Play className='w-4 h-4 text-white' style={{marginLeft: '2px'}}/>
+                                </div>
+                                Browse Problems
+                            </button>
+                        </div>
 
-                    {/* Stats */}
-                    <div className='grid grid-cols-3 gap-16'>
-                        {[
-                            { value: '500+', label: 'Problems Posted', color: 'text-purple-400' },
-                            { value: '1,200+', label: 'Developers & Students', color: 'text-pink-400' },
-                            { value: '300+', label: 'Solutions Delivered', color: 'text-yellow-400' },
-                        ].map((stat) => (
-                            <div key={stat.label} className='text-center'>
-                                <h2 className={`text-5xl font-black ${stat.color}`}>{stat.value}</h2>
-                                <p className='text-purple-300 text-sm mt-2'>{stat.label}</p>
-                            </div>
-                        ))}
+                        {/* Stats */}
+                        <div className='flex items-center gap-10 mt-14'>
+                            {[
+                                { value: '500+', label: 'Problems Posted' },
+                                { value: '1,200+', label: 'Developers' },
+                                { value: '300+', label: 'Solutions' },
+                            ].map(stat => (
+                                <div key={stat.label}>
+                                    <h2 className='font-black text-white text-2xl'>{stat.value}</h2>
+                                    <p className='text-xs mt-1' style={{color: '#818cf8'}}>{stat.label}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* HOW IT WORKS */}
-            <div className='py-24' style={{background: 'linear-gradient(180deg, #faf5ff, #ffffff)'}}>
+            <div className='py-24' style={{background: '#1e1b4b'}}>
                 <div className='max-w-7xl mx-auto px-4'>
                     <div className='text-center mb-16'>
-                        <span className='px-4 py-2 bg-purple-100 text-purple-700 text-sm font-semibold rounded-full'>Simple Process</span>
-                        <h2 className='text-4xl font-black text-gray-900 mt-4 mb-4'>How RealBridge Works</h2>
-                        <p className='text-gray-500 text-lg max-w-xl mx-auto'>Three simple steps to connect problems with solutions</p>
+                        <h2 className='font-black text-white mt-4 mb-4' style={{fontSize: '40px'}}>How RealBridge Works</h2>
+                        <p style={{color: 'rgba(165,180,252,0.7)'}}>Three simple steps to connect problems with solutions</p>
                     </div>
-
                     <div className='grid grid-cols-3 gap-8'>
                         {[
-                            {
-                                step: '01',
-                                title: 'Post Your Problem',
-                                desc: 'Describe your real-world challenge. Anyone can post — no technical knowledge needed.',
-                                gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)',
-                                bg: 'bg-purple-50',
-                                border: 'border-purple-100'
-                            },
-                            {
-                                step: '02',
-                                title: 'Get Matched',
-                                desc: 'Our smart matching connects your problem with the right developer or student.',
-                                gradient: 'linear-gradient(135deg, #6366f1, #4338ca)',
-                                bg: 'bg-indigo-50',
-                                border: 'border-indigo-100'
-                            },
-                            {
-                                step: '03',
-                                title: 'Receive Solution',
-                                desc: 'Track progress, collaborate, and get a real working solution delivered.',
-                                gradient: 'linear-gradient(135deg, #ec4899, #db2777)',
-                                bg: 'bg-pink-50',
-                                border: 'border-pink-100'
-                            }
-                        ].map((item) => (
-                            <div key={item.step} className={`${item.bg} border ${item.border} rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all hover:-translate-y-1`}>
-                                <div className='w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl text-white mb-6' style={{backgroundImage: item.gradient}}>
+                            { step: '01', title: 'Post Your Problem', desc: 'Describe your real-world challenge. No technical knowledge needed.', color: '#6366f1' },
+                            { step: '02', title: 'Get Matched', desc: 'Smart matching connects your problem with the right developer.', color: '#818cf8' },
+                            { step: '03', title: 'Receive Solution', desc: 'Track progress and get a real working solution delivered.', color: '#a5b4fc' }
+                        ].map(item => (
+                            <div key={item.step} className='rounded-3xl p-8 hover:-translate-y-1 transition-all'
+                                style={{background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(165,180,252,0.2)'}}>
+                                <div className='w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl text-white mb-6'
+                                    style={{background: item.color}}>
                                     {item.step}
                                 </div>
-                                <h3 className='text-xl font-black text-gray-900 mb-3'>{item.title}</h3>
-                                <p className='text-gray-500 leading-relaxed'>{item.desc}</p>
+                                <h3 className='text-xl font-black text-white mb-3'>{item.title}</h3>
+                                <p style={{color: 'rgba(165,180,252,0.7)'}}>{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -151,85 +260,55 @@ const HeroSection = () => {
             </div>
 
             {/* CATEGORIES */}
-            <div className='py-24 bg-white'>
+            <div className='py-24' style={{background: '#2d1b69'}}>
                 <div className='max-w-7xl mx-auto px-4'>
                     <div className='text-center mb-16'>
-                        <span className='px-4 py-2 bg-indigo-100 text-indigo-700 text-sm font-semibold rounded-full'>Explore</span>
-                        <h2 className='text-4xl font-black text-gray-900 mt-4 mb-4'>Problem Categories</h2>
-                        <p className='text-gray-500 text-lg'>Browse problems across different domains</p>
+                        <h2 className='font-black text-white mt-4 mb-4' style={{fontSize: '40px'}}>Problem Categories</h2>
+                        <p style={{color: 'rgba(165,180,252,0.7)'}}>Browse problems across different domains</p>
                     </div>
-
                     <div className='grid grid-cols-4 gap-4'>
                         {[
-                            { name: 'Agriculture', emoji: '🌾', gradient: 'linear-gradient(135deg, #d1fae5, #a7f3d0)', text: 'text-green-700' },
-                            { name: 'Healthcare', emoji: '🏥', gradient: 'linear-gradient(135deg, #fee2e2, #fecaca)', text: 'text-red-700' },
-                            { name: 'Education', emoji: '📚', gradient: 'linear-gradient(135deg, #dbeafe, #bfdbfe)', text: 'text-blue-700' },
-                            { name: 'Environment', emoji: '🌍', gradient: 'linear-gradient(135deg, #ccfbf1, #99f6e4)', text: 'text-teal-700' },
-                            { name: 'Technology', emoji: '💻', gradient: 'linear-gradient(135deg, #ede9fe, #ddd6fe)', text: 'text-purple-700' },
-                            { name: 'Business', emoji: '💼', gradient: 'linear-gradient(135deg, #fef9c3, #fef08a)', text: 'text-yellow-700' },
-                            { name: 'Social', emoji: '🤝', gradient: 'linear-gradient(135deg, #fce7f3, #fbcfe8)', text: 'text-pink-700' },
-                            { name: 'Other', emoji: '✨', gradient: 'linear-gradient(135deg, #f3f4f6, #e5e7eb)', text: 'text-gray-700' },
-                        ].map((cat) => (
-                            <button
-                                key={cat.name}
+                            { name: 'Agriculture', emoji: '🌾' },
+                            { name: 'Healthcare', emoji: '🏥' },
+                            { name: 'Education', emoji: '📚' },
+                            { name: 'Environment', emoji: '🌍' },
+                            { name: 'Technology', emoji: '💻' },
+                            { name: 'Business', emoji: '💼' },
+                            { name: 'Social', emoji: '🤝' },
+                            { name: 'Other', emoji: '✨' },
+                        ].map(cat => (
+                            <button key={cat.name}
                                 onClick={() => { dispatch(setSearchedQuery(cat.name)); navigate("/problems"); }}
-                                className='rounded-3xl p-6 text-center transition-all hover:scale-105 hover:shadow-lg cursor-pointer'
-                                style={{backgroundImage: cat.gradient}}
-                            >
+                                className='rounded-3xl p-6 text-center transition-all hover:scale-105 hover:-translate-y-1'
+                                style={{background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(165,180,252,0.2)'}}>
                                 <div className='text-4xl mb-3'>{cat.emoji}</div>
-                                <p className={`font-bold ${cat.text}`}>{cat.name}</p>
+                                <p className='font-bold text-white'>{cat.name}</p>
                             </button>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* WHY REALBRIDGE */}
-            <div className='py-24' style={{background: 'linear-gradient(135deg, #1e1b4b, #312e81, #1e1b4b)'}}>
-                <div className='max-w-7xl mx-auto px-4'>
-                    <div className='text-center mb-16'>
-                        <h2 className='text-4xl font-black text-white mb-4'>Why RealBridge?</h2>
-                        <p className='text-indigo-300 text-lg'>We're different from every other platform out there</p>
-                    </div>
-                    <div className='grid grid-cols-2 gap-6'>
-                        {[
-                            { icon: '🚀', title: 'Real World Experience', desc: 'Developers get actual projects to work on instead of building the 100th todo app.', color: 'border-purple-500' },
-                            { icon: '🌉', title: 'Bridge The Gap', desc: 'Common people finally have a way to bring their problems to technical minds.', color: 'border-pink-500' },
-                            { icon: '🏆', title: 'Build Your Portfolio', desc: 'Every solution becomes a verified portfolio piece that impresses employers.', color: 'border-yellow-500' },
-                            { icon: '🤝', title: 'Community Driven', desc: 'A supportive community of problem solvers working together for real impact.', color: 'border-green-500' },
-                        ].map((item) => (
-                            <div key={item.title} className={`bg-white bg-opacity-5 border ${item.color} border-opacity-40 rounded-3xl p-8 backdrop-blur-sm hover:bg-opacity-10 transition-all`}>
-                                <div className='text-4xl mb-4'>{item.icon}</div>
-                                <h3 className='text-xl font-black text-white mb-3'>{item.title}</h3>
-                                <p className='text-indigo-300 leading-relaxed'>{item.desc}</p>
-                            </div>
                         ))}
                     </div>
                 </div>
             </div>
 
             {/* CTA */}
-            <div className='py-24 bg-white'>
+            <div className='py-24' style={{background: '#1e1b4b'}}>
                 <div className='max-w-4xl mx-auto px-4 text-center'>
-                    <div className='rounded-3xl p-16' style={{backgroundImage: 'linear-gradient(135deg, #7c3aed, #6366f1, #ec4899)'}}>
-                        <h2 className='text-5xl font-black text-white mb-4'>
+                    <div className='rounded-3xl p-16'
+                        style={{background: 'linear-gradient(135deg, #3730a3, #4338ca, #3b0764)', border: '1px solid rgba(165,180,252,0.3)'}}>
+                        <h2 className='font-black text-white mb-4' style={{fontSize: '48px'}}>
                             Ready to Make an Impact? 🚀
                         </h2>
-                        <p className='text-purple-100 text-lg mb-10 max-w-xl mx-auto'>
-                            Join thousands of problem solvers and developers building a better India together.
+                        <p className='text-lg mb-10' style={{color: 'rgba(199,210,254,0.8)'}}>
+                            Join thousands of problem solvers and developers building a better India.
                         </p>
                         <div className='flex items-center justify-center gap-4'>
-                            <button
-                                onClick={() => navigate('/signup')}
-                                className='px-8 py-4 bg-white font-black rounded-2xl hover:bg-purple-50 transition-all text-transparent bg-clip-text'
-                                style={{color: '#7c3aed'}}
-                            >
+                            <button onClick={() => navigate('/signup')}
+                                className='px-8 py-4 font-black rounded-full text-white hover:opacity-90 transition-all'
+                                style={{background: '#1e1b4b'}}>
                                 Post a Problem 📋
                             </button>
-                            <button
-                                onClick={() => navigate('/signup')}
-                                className='px-8 py-4 font-black rounded-2xl border-2 border-white text-white hover:bg-white hover:text-purple-700 transition-all'
-                            >
+                            <button onClick={() => navigate('/signup')}
+                                className='px-8 py-4 font-black rounded-full transition-all text-white'
+                                style={{background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.3)'}}>
                                 Join as Developer 💻
                             </button>
                         </div>

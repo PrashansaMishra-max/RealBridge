@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import Navbar from '../shared/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { USER_API_END_POINT } from '../../utils/constant'
 import { toast } from 'sonner'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Mail, Lock, Phone, User } from 'lucide-react'
+import { USER_API_END_POINT } from '../../utils/constant'
+import Navbar from '../shared/Navbar'
 
 const Signup = () => {
     const [input, setInput] = useState({
@@ -34,9 +34,7 @@ const Signup = () => {
         formData.append("phoneNumber", input.phoneNumber);
         formData.append("password", input.password);
         formData.append("role", input.role);
-        if (input.file) {
-            formData.append("file", input.file);
-        }
+        if (input.file) formData.append("file", input.file);
         try {
             setLoading(true);
             const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
@@ -55,117 +53,134 @@ const Signup = () => {
     }
 
     return (
-        <div>
+        <div className='page-wrapper'>
             <Navbar />
-            <div className='flex items-center justify-center max-w-7xl mx-auto mt-10'>
-                <form onSubmit={submitHandler} className='w-full max-w-md border border-gray-200 rounded-xl p-8 shadow-lg'>
-                    <h1 className='font-bold text-2xl mb-6 text-center'>Create Account 🚀</h1>
+            <div className='flex items-center justify-center px-4 py-16'>
+                <div className='w-full max-w-md'>
+                    <div className='purple-card p-8'>
 
-                    {/* Full Name */}
-                    <div className='my-4'>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>Full Name</label>
-                        <input
-                            type="text"
-                            name="fullname"
-                            value={input.fullname}
-                            onChange={changeEventHandler}
-                            placeholder="Your full name"
-                            className='w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:border-purple-500'
-                        />
-                    </div>
-
-                    {/* Email */}
-                    <div className='my-4'>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={input.email}
-                            onChange={changeEventHandler}
-                            placeholder="you@example.com"
-                            className='w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:border-purple-500'
-                        />
-                    </div>
-
-                    {/* Phone */}
-                    <div className='my-4'>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>Phone Number</label>
-                        <input
-                            type="text"
-                            name="phoneNumber"
-                            value={input.phoneNumber}
-                            onChange={changeEventHandler}
-                            placeholder="9876543210"
-                            className='w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:border-purple-500'
-                        />
-                    </div>
-
-                    {/* Password */}
-                    <div className='my-4'>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={input.password}
-                            onChange={changeEventHandler}
-                            placeholder="••••••••"
-                            className='w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:border-purple-500'
-                        />
-                    </div>
-
-                    {/* Role */}
-                    <div className='my-4'>
-                        <label className='block text-sm font-medium text-gray-700 mb-2'>I am a</label>
-                        <div className='flex items-center gap-6'>
-                            <label className='flex items-center gap-2 cursor-pointer'>
-                                <input
-                                    type="radio"
-                                    name="role"
-                                    value="user"
-                                    checked={input.role === 'user'}
-                                    onChange={changeEventHandler}
-                                    className='accent-purple-600'
-                                />
-                                <span>Problem Poster</span>
-                            </label>
-                            <label className='flex items-center gap-2 cursor-pointer'>
-                                <input
-                                    type="radio"
-                                    name="role"
-                                    value="developer"
-                                    checked={input.role === 'developer'}
-                                    onChange={changeEventHandler}
-                                    className='accent-purple-600'
-                                />
-                                <span>Developer</span>
-                            </label>
+                        {/* Header */}
+                        <div className='text-center mb-8'>
+                            <h2 className='text-3xl font-black text-white mb-2'>Create Account 🚀</h2>
+                            <p style={{color: 'rgba(165,180,252,0.7)'}}>Join RealBridge and start making an impact</p>
                         </div>
+
+                        <form onSubmit={submitHandler} className='space-y-5'>
+
+                            {/* Full Name */}
+                            <div>
+                                <label className='block text-sm font-semibold mb-2' style={{color: '#a5b4fc'}}>Full Name</label>
+                                <div className='relative'>
+                                    <User className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5' style={{color: 'rgba(165,180,252,0.6)'}}/>
+                                    <input
+                                        type="text"
+                                        name="fullname"
+                                        value={input.fullname}
+                                        onChange={changeEventHandler}
+                                        placeholder="Your full name"
+                                        className='purple-input w-full pl-12 pr-4 py-3'
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Email */}
+                            <div>
+                                <label className='block text-sm font-semibold mb-2' style={{color: '#a5b4fc'}}>Email Address</label>
+                                <div className='relative'>
+                                    <Mail className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5' style={{color: 'rgba(165,180,252,0.6)'}}/>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={input.email}
+                                        onChange={changeEventHandler}
+                                        placeholder="you@example.com"
+                                        className='purple-input w-full pl-12 pr-4 py-3'
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Phone */}
+                            <div>
+                                <label className='block text-sm font-semibold mb-2' style={{color: '#a5b4fc'}}>Phone Number</label>
+                                <div className='relative'>
+                                    <Phone className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5' style={{color: 'rgba(165,180,252,0.6)'}}/>
+                                    <input
+                                        type="text"
+                                        name="phoneNumber"
+                                        value={input.phoneNumber}
+                                        onChange={changeEventHandler}
+                                        placeholder="9876543210"
+                                        className='purple-input w-full pl-12 pr-4 py-3'
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Password */}
+                            <div>
+                                <label className='block text-sm font-semibold mb-2' style={{color: '#a5b4fc'}}>Password</label>
+                                <div className='relative'>
+                                    <Lock className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5' style={{color: 'rgba(165,180,252,0.6)'}}/>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        value={input.password}
+                                        onChange={changeEventHandler}
+                                        placeholder="••••••••"
+                                        className='purple-input w-full pl-12 pr-4 py-3'
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Role */}
+                            <div>
+                                <label className='block text-sm font-semibold mb-3' style={{color: '#a5b4fc'}}>I am a</label>
+                                <div className='grid grid-cols-2 gap-3'>
+                                    {[
+                                        { value: 'user', label: 'Problem Poster', emoji: '📋' },
+                                        { value: 'developer', label: 'Developer', emoji: '💻' }
+                                    ].map((role) => (
+                                        <label key={role.value}
+                                            className='flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all'
+                                            style={{
+                                                border: `1px solid ${input.role === role.value ? '#a5b4fc' : 'rgba(165,180,252,0.2)'}`,
+                                                background: input.role === role.value ? 'rgba(165,180,252,0.15)' : 'transparent'
+                                            }}>
+                                            <input type="radio" name="role" value={role.value} checked={input.role === role.value} onChange={changeEventHandler} className='hidden'/>
+                                            <span className='text-xl'>{role.emoji}</span>
+                                            <span className='text-white text-sm font-medium'>{role.label}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Profile Photo */}
+                            <div>
+                                <label className='block text-sm font-semibold mb-2' style={{color: '#a5b4fc'}}>Profile Photo</label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={changeFileHandler}
+                                    className='w-full py-3 px-4 rounded-xl text-indigo-200 cursor-pointer'
+                                    style={{background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(165,180,252,0.2)'}}
+                                />
+                            </div>
+
+                            {/* Submit */}
+                            <button type="submit" disabled={loading}
+                                className='w-full py-3 rounded-xl text-white font-bold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-all'
+                                style={{backgroundImage: 'linear-gradient(135deg, #6366f1, #4338ca)'}}>
+                                {loading ? <><Loader2 className='w-5 h-5 animate-spin'/> Please wait...</> : 'Create Account →'}
+                            </button>
+
+                            <p className='text-center text-sm' style={{color: 'rgba(165,180,252,0.7)'}}>
+                                Already have an account?{' '}
+                                <Link to="/login" className='font-bold hover:text-white transition-colors' style={{color: '#a5b4fc'}}>
+                                    Sign in
+                                </Link>
+                            </p>
+                        </form>
                     </div>
-
-                    {/* Profile Photo */}
-                    <div className='my-4'>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>Profile Photo</label>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={changeFileHandler}
-                            className='w-full border border-gray-300 rounded-lg px-4 py-2 cursor-pointer'
-                        />
-                    </div>
-
-                    {/* Submit */}
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className='w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 mt-4 flex items-center justify-center'
-                    >
-                        {loading ? <><Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait</> : 'Create Account'}
-                    </button>
-
-                    <p className='text-sm text-center mt-4'>
-                        Already have an account? <Link to="/login" className='text-purple-600 font-medium'>Login</Link>
-                    </p>
-                </form>
+                </div>
             </div>
         </div>
     )
