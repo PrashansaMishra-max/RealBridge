@@ -25,7 +25,11 @@ const Navbar = () => {
         }
     }
 
-    const dashboardRoute = user?.role === 'developer' ? '/dashboard/developer' : '/dashboard/citizen';
+    const dashboardRoute = user?.role === 'admin' 
+    ? '/dashboard/admin' 
+    : user?.role === 'developer' 
+    ? '/dashboard/developer' 
+    : '/dashboard/citizen';
 
     return (
         <nav style={{
@@ -64,11 +68,20 @@ const Navbar = () => {
                             style={{color: 'rgba(196,181,253,0.8)'}}>Post Problem</Link>
                     )}
                     {user && (
-                        <Link to={dashboardRoute}
-                            className='flex items-center gap-1 text-sm font-medium transition-all hover:text-white'
-                            style={{color: 'rgba(196,181,253,0.8)'}}>
-                            <LayoutDashboard className='w-4 h-4'/>
-                            Dashboard
+    <Link to={dashboardRoute}
+        className='flex items-center gap-1 text-sm font-medium transition-all hover:text-white'
+        style={{color: 'rgba(196,181,253,0.8)'}}>
+        <LayoutDashboard className='w-4 h-4'/>
+        Dashboard
+    </Link>
+)}
+{user?.role === 'admin' && (
+    <Link to="/dashboard/admin"
+        className='flex items-center gap-1 text-sm font-medium transition-all hover:text-white px-3 py-1 rounded-lg'
+        style={{color: '#fbbf24', background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.3)'}}>
+        👑 Admin
+    </Link>
+)}
                         </Link>
                     )}
                 </div>
