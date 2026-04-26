@@ -3,8 +3,9 @@ import Navbar from '../shared/Navbar'
 import Footer from '../shared/Footer'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
+import useGetAllProblems from "../../hooks/useGetAllProblems";
 const DeveloperDashboard = () => {
+    useGetAllProblems(); 
     const { user } = useSelector(store => store.auth);
     const { allProblems } = useSelector(store => store.problem);
     const navigate = useNavigate();

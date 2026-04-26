@@ -9,7 +9,7 @@ import ProblemDetail from './components/problems/ProblemDetail'
 import CitizenDashboard from './components/dashboard/CitizenDashboard'
 import DeveloperDashboard from './components/dashboard/DeveloperDashboard'
 import AdminDashboard from './components/dashboard/AdminDashboard'
-
+import useGetUserProfile from './hooks/useGetUserProfile' 
 const appRouter = createBrowserRouter([
   {
     path: '/',
@@ -66,6 +66,7 @@ const appRouter = createBrowserRouter([
 ])
 
 function App() {
+   useGetUserProfile();
   return (
     <div>
       <RouterProvider router={appRouter} />
